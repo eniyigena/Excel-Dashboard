@@ -8,7 +8,7 @@ A retail performance dashboard for Kigali and Musanze that shows when recorded s
 
 Use the Region, Gender, and Payment Method filters to explore the fixed dataset. The payment and gender charts show the share of matching transaction rows on each slice.
 
-![Retail sales overview showing monthly recorded sales and product mix](assets/retail-sales-overview.png)
+![Interactive Retail Sales Dashboard with sales charts, filters, and on-slice percentage labels](assets/retail-sales-overview.png)
 
 | Metric | Result |
 | --- | ---: |
