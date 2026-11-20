@@ -4,7 +4,9 @@
 
 A retail performance dashboard for Kigali and Musanze that shows when recorded sales peaked, which product type contributed most, and how customers paid. The analysis covers January 1 through May 3, 2025.
 
-[Open the interactive dashboard](https://eniyigena.github.io/Excel-Dashboard/)
+[Open the interactive dashboard](https://eniyigena.github.io/Excel-Dashboard/) · [Download the Excel workbook](assets/Retail_Sales_Dashboard_Portfolio.xlsx)
+
+Open the **NEW DASH BOARD** worksheet in desktop Excel to explore the original charts and slicers. This portfolio copy blanks ages and replaces names and identifiers with generic labels. It uses the saved Excel data as a standalone workbook.
 
 Use the Region, Gender, and Payment Method filters to explore the fixed dataset. The payment and gender charts show the share of matching transaction rows on each slice.
 
