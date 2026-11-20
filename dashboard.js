@@ -72,22 +72,38 @@ function donut(id, data, total) {
     el.innerHTML = '<p class="empty">No matching transactions.</p>';
     return;
   }
+  const isPie = id === 'gender';
+  const radius = isPie ? 24 : 43;
+  const thickness = isPie ? 48 : 17;
+  const percentages = [];
   let offset = 0;
   const slices = data.map(([label, count], i) => {
     const share = count / total * 100;
-    const mark = count ? '<circle cx="58" cy="58" r="43" pathLength="100" fill="none" stroke-width="15" stroke="' +
+    if (count) {
+      const angle = (offset + share / 2) * Math.PI / 50 - Math.PI / 2;
+      const labelRadius = isPie ? 28 : 43;
+      const x = 58 + labelRadius * Math.cos(angle);
+      const y = 58 + labelRadius * Math.sin(angle);
+      const text = share < 1 ? '<1%' : Math.round(share) + '%';
+      percentages.push('<g aria-hidden="true"><rect x="' + (x - 15) + '" y="' + (y - 8) +
+        '" width="30" height="16" rx="3" fill="#fffdf9"/><text x="' + x + '" y="' + (y + 3.5) +
+        '" text-anchor="middle" class="slice-label">' + text.replace('<', '&lt;') + '</text></g>');
+    }
+    const mark = count ? '<circle cx="58" cy="58" r="' + radius + '" pathLength="100" fill="none" stroke-width="' + thickness + '" stroke="' +
       colors[i] + '" stroke-dasharray="' + share + ' ' + (100 - share) + '" stroke-dashoffset="' + (-offset) +
       '" transform="rotate(-90 58 58)"><title>' + label + ' · ' + count + '</title></circle>' : '';
     offset += share;
     return mark;
   }).join('');
   const legend = data.map(([label, count], i) =>
-    '<li><span class="swatch" style="background:' + colors[i] + '"></span><span>' + label + '</span><strong title="' +
-    count + ' transaction rows">' + (count / total * 100).toFixed(1) + '%</strong></li>'
+    '<li><span class="swatch" style="background:' + colors[i] + '"></span><span title="' +
+    count + ' transaction rows">' + label + '</span></li>'
   ).join('');
-  el.innerHTML = '<div class="donut-wrap">' + svg('0 0 116 116', data.map(([label, count]) => label + ' ' + count).join(', '),
-    slices + '<text x="58" y="57" text-anchor="middle" style="font-size:21px;font-weight:700">' + total +
-    '</text><text x="58" y="73" text-anchor="middle">rows</text>') + '<ul class="legend">' + legend + '</ul></div>';
+  const center = isPie ? '' : '<text x="58" y="57" text-anchor="middle" style="font-size:21px;font-weight:700">' + total +
+    '</text><text x="58" y="73" text-anchor="middle">rows</text>';
+  const description = data.map(([label, count]) => label + ' ' + (count / total * 100).toFixed(1) + '%, ' + count + ' rows');
+  el.innerHTML = '<div class="donut-wrap">' + svg('0 0 116 116', description.join('; '),
+    slices + center + percentages.join('')) + '<ul class="legend">' + legend + '</ul></div>';
 }
 
 function render() {
