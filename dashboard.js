@@ -99,11 +99,9 @@ function donut(id, data, total) {
     '<li><span class="swatch" style="background:' + colors[i] + '"></span><span title="' +
     count + ' transaction rows">' + label + '</span></li>'
   ).join('');
-  const center = isPie ? '' : '<text x="58" y="57" text-anchor="middle" style="font-size:21px;font-weight:700">' + total +
-    '</text><text x="58" y="73" text-anchor="middle">rows</text>';
   const description = data.map(([label, count]) => label + ' ' + (count / total * 100).toFixed(1) + '%, ' + count + ' rows');
   el.innerHTML = '<div class="donut-wrap">' + svg('0 0 116 116', description.join('; '),
-    slices + center + percentages.join('')) + '<ul class="legend">' + legend + '</ul></div>';
+    slices + percentages.join('')) + '<ul class="legend">' + legend + '</ul></div>';
 }
 
 function render() {
